@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.dlsp.hospital.mapper.HospitalDoctorMapper">
+    <resultMap id="BaseResultMap" type="cn.dlsp.hospital.entity.HospitalDoctor">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="job_title" jdbcType="VARCHAR" property="jobTitle"/>
+        <result column="specialty" jdbcType="VARCHAR" property="specialty"/>
+        <result column="special_id" jdbcType="BIGINT" property="specialId"/>
+        <result column="outpatient_id" jdbcType="BIGINT" property="outpatientId"/>
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , username, gender, job_title, specialty, special_id, outpatient_id, gmt_create, gmt_modified
+    </sql>
+
+    <!--    查询所有医生-->
+    <select id="selectByDoctorName" resultType="cn.dlsp.hospital.entity.HospitalDoctor"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from hospital_doctor
+        <where>
+            <if test="username!=null">
+                username like '%${username}%'
+                and deleted = 0
+            </if>
+            <if test="username == null">
+                deleted = 0
+            </if>
+        </where>
+    </select>
+    <select id="selectAllDortor" resultType="cn.dlsp.hospital.entity.HospitalDoctor">
+        select * from hospital_doctor
+    </select>
+
+
+</mapper>
