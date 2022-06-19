@@ -45,9 +45,6 @@ public class HospitalDoctorController {
     public CommonResult<CommonPage<HospitalDoctor>> searchDoctor(@RequestParam(defaultValue = "")String username,
                                                                  @RequestParam Integer pageNum,
                                                                  @RequestParam Integer pageSize) {
-        //myResult
         return CommonResult.success(CommonPage.restPage(doctorService.selectDoctorList(username, pageNum, pageSize)));
-
-
     }
 }
